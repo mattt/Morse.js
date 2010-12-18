@@ -9,8 +9,8 @@ This plugin will transcribe the morse code for text in the selected elements. In
 
 Bleeps and bloops speak louder than words:
 
-Try it out at: <tt>[http://mattt.github.com/Morse.js/](http://mattt.github.com/Morse.js/ "Try out Morse.js!")</tt>
-*Note:* Requires browser with support for HTML5 <audio>, such as [Safari 4](http://www.apple.com/safari/download/), [Firefox 3.5](http://www.mozilla.com/firefox/), or [Chrome](http://www.google.com/chrome/)
+Try it out at: `[http://mattt.github.com/Morse.js/](http://mattt.github.com/Morse.js/ "Try out Morse.js!")`  
+*Note:* Requires browser with support for HTML5 `<audio>`, such as [Safari 4](http://www.apple.com/safari/download/), [Firefox 3.5](http://www.mozilla.com/firefox/), or [Chrome](http://www.google.com/chrome/)
 
 ## Usage
 
