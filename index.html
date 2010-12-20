@@ -5,74 +5,40 @@
   <meta name="author" content="Mattt Thompson">
   <meta name="description" content="Morse.js — A jQuery plugin to annotate text with Morse Code">
 	<title>Morse.js Demo</title>
-	<style type="text/css" media="screen" charset="utf-8">
-	 body{background:#4F5252;font-size:1.3em;line-height:1.1em;font-family:"Helvetica",Helvetica,sans-serif;
-	   -webkit-text-stroke: 1px transparent;
-  -webkit-background-clip: padding-box;}
-    h1,h2{text-align:center;}
-    h1{color:#222;text-shadow:1px 1px 1px #ddd;margin-bottom:0.5em;}
-    h2{color:#888;width:80%;margin:0.5em auto 30px auto;font-family:"Palantino",Georgia;font-size:80%;font-style:italic;font-weight:normal;}
-    p,label, span{text-shadow:1px 1px 1px #f2f2f2;}nil
-    label{color:#444;display:block;font-variant:small-caps;text-transform:lowercase;}
-    p{font-size:77%;color:#444;}
-    input{width:440px;font-size:1.5em;margin-bottom:0.75em;}
-    .explanation, .audio-test{text-align:center;}
-    a{color:#5C583F;}
-    a:hover{background:#ddd;}
-    a:visited{color:#5C583F;}
-    a:active{color:#fff;background:#444;text-shadow:none;}
-    fieldset{width:440px;margin:10px auto;border:none;}
-    hr{border:0px transparent solid;border-top:1px #fdfdfd solid;border-bottom:1px #ddd solid;margin:20px 0 30px 0;}
-    .container, .footer{width:480px;}
-    .container{padding:30px 30px;margin:50px auto 30px auto;background:#fff;-moz-border-radius:11px;-khtml-border-radius:11px;-webkit-border-radius:11px;border-radius:11px;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;-webkit-box-shadow:1px 0px 5px #444;-khtml-box-sizing:content-box;box-sizing:content-box;
-    }
-    section {
-      margin:10px 0;border-top:1px #f2f2f2 solid; padding:10px 0;
-    }
-    input[type="range"]{
-      float:left;
-      width:330px;
-      margin:10px 20px 10px auto;
-   -webkit-appearance:none !important;
-   display:block;
-      -moz-border-radius:5px;
-   -webkit-border-radius:5px;
-   border-radius:5px;
-   height:10px;
-   background:#ccc;
- }
-
- input[type="range"]::-webkit-slider-thumb{
-   -webkit-appearance:none !important;
-   -moz-border-radius:10px;
-   -webkit-border-radius:10px;
-   border-radius:10px;
-   width:20px;
-   height:20px;
-   background:#222;
-   display:block;
- }
- menu.controls{
-   clear:both;
-   height:30px;
- }
- label[for="wpm"]{display:block;text-align:center;color:#444;text-transform:lowercase;font-variant:small-caps;}
-    #chart{width:100%;}
-    .letter{font-size:1.5em;text-align:center;font-weight:bold;padding:0.25em;}
-    ruby.morse-code{cursor:pointer;}
-    .letter:hover{background:#ccc;  -moz-border-radius:5px;
-   -webkit-border-radius:5px;
-   border-radius:5px;}
-    .letter ruby.morse-code rt{font-family:"Menlo", "Monaco", "Courier", monospace; letter-spacing:3pt; text-align:center;text-indent:0.3em;}
-    #free-form p{
-      font-size:1.5em;
-      text-align:center;
-    }
-    #free-form input{ font-size:1.00em;width:100%;color:#777;text-align:center;}
-    .footer{margin:0 auto;display:block;color:#999;text-align:center;font-size:0.6em;}
-    .footer span{display:block;line-height:1.5em;text-shadow: #444 1px 1px 0px ;}
-    .footer a{color:#999}
-    .footer a:hover{text-shadow:none;color:#555;}
+	<style type="text/css" media="screen" charset="utf-8">   body{background:#4F5252;font-size:1.3em;line-height:1.1em;font-family:"Helvetica",Helvetica,sans-serif;-webkit-text-stroke:1px transparent;-webkit-background-clip:padding-box;}
+  h1,h2{text-align:center;}
+  h1{color:#222;text-shadow:1px 1px 1px #ddd;margin-bottom:0.5em;}
+  h2{color:#888;width:80%;margin:0.5em auto 30px auto;font-family:"Palantino",Georgia;font-size:80%;font-style:italic;font-weight:normal;}
+  p,label,span{text-shadow:1px 1px 1px #f2f2f2;}
+  nil
+  label{color:#444;display:block;font-variant:small-caps;text-transform:lowercase;}
+  p{font-size:77%;color:#444;}
+  input{width:440px;font-size:1.5em;margin-bottom:0.75em;}
+  .explanation,.audio-test{text-align:center;}
+  a{color:#5C583F;}
+  a:hover{background:#ddd;}
+  a:visited{color:#5C583F;}
+  a:active{color:#fff;background:#444;text-shadow:none;}
+  fieldset{width:440px;margin:10px auto;border:none;}
+  hr{border:0px transparent solid;border-top:1px #fdfdfd solid;border-bottom:1px #ddd solid;margin:20px 0 30px 0;}
+  .container,.footer{width:480px;}
+  .container{padding:30px 30px;margin:50px auto 30px auto;background:#fff;-moz-border-radius:11px;-khtml-border-radius:11px;-webkit-border-radius:11px;border-radius:11px;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;-webkit-box-shadow:1px 0px 5px #444;-khtml-box-sizing:content-box;box-sizing:content-box;}
+  section{margin:10px 0;border-top:1px #f2f2f2 solid;padding:10px 0;}
+  input[type="range"]{float:left;width:330px;margin:10px 20px 10px auto;-webkit-appearance:none !important;display:block;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;height:10px;background:#ccc;}
+  input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none !important;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;width:20px;height:20px;background:#222;display:block;}
+  menu.controls{clear:both;height:30px;}
+  label[for="wpm"]{display:block;text-align:center;color:#444;text-transform:lowercase;font-variant:small-caps;}
+  #chart{width:100%;}
+  .letter{font-size:1.5em;text-align:center;font-weight:bold;padding:0.25em;}
+  ruby.morse-code{cursor:pointer;}
+  .letter:hover{background:#ccc;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
+  .letter ruby.morse-code rt{font-family:"Menlo","Monaco","Courier",monospace;letter-spacing:3pt;text-align:center;text-indent:0.3em;}
+  #free-form p{font-size:1.5em;text-align:center;}
+  #free-form input{font-size:1.00em;width:100%;color:#777;text-align:center;}
+  .footer{margin:0 auto;display:block;color:#999;text-align:center;font-size:0.6em;}
+  .footer span{display:block;line-height:1.5em;text-shadow:#444 1px 1px 0px ;}
+  .footer a{color:#999}
+  .footer a:hover{text-shadow:none;color:#555;}
 	</style>
 	<script src="http://www.google.com/jsapi"></script>
   <script type="text/javascript" charset="utf-8">
@@ -100,6 +66,7 @@
       }).trigger("change");
     });
 	</script>
+  <script src='http://mattt.me/mint/?js' type='text/javascript' language='javascript'></script>
 </head>
 
 <body>
