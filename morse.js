@@ -52,7 +52,7 @@
           }
         }
         
-        $el.append('<ruby class="morse-code"><rb>' + token + '</rb><rt>' + symbols.join(' ') + '</rt></ruby>');
+        $el.append('<ruby class="morse-code"><rb>' + token + '</rb><rt>' + symbols.join(' ') + '&nbsp;' + '</rt></ruby>');
       }
       
       $el.each(function() {
