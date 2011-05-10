@@ -20,8 +20,19 @@
           "y": "_.__",  "z": "__..",  " ": " ",
 
           "1": ".____", "2": "..___", "3": "...__", "4": "...._", "5": ".....",
-          "6": "_....", "7": "__...", "8": "___..", "9": "____.", "0": "_____"
+          "6": "_....", "7": "__...", "8": "___..", "9": "____.", "0": "_____",
+          
+          ".": "._._._",	",": "__..__",	"?": "..__..",	"'": ".____.",
+          "/": "_.._.",		"(": "_.__.",	")": "_.__._",	"&": "._...",
+          ":": "___...",	";": "_._._.",	"=": "_..._",	"+": "._._.",
+          "-": "_...._",	"_": "..__._",	"\"": "._.._.",	"$": "..._.._",
+          "!": "_._.__",	"@": ".__._."
     },
+    /*
+     * Note: Some operators prefer "!" as "___." and others as "_._.__"
+     * ARRL message format has most punctuation spelled out, as many symbols'
+     * encodings conflict with procedural signals (e.g. "=" and "BT").
+     */
     annotate: function(el) {
       var $el = $(el);
       var tokens = $el.text().split(/\s+/);
@@ -41,7 +52,7 @@
           }
         }
         
-        $el.append('<ruby class="morse-code"><rb>' + token + '</rb><rt>' + symbols.join(' ') + '</rt></ruby>');
+        $el.append('<ruby class="morse-code"><rb>' + token + '</rb><rt>' + symbols.join(' ') + '&nbsp;' + '</rt></ruby>');
       }
       
       $el.each(function() {
