@@ -54,4 +54,6 @@ Morse.js is licensed under the MIT License:
 ## Credit
 
 Javascript client-side WAV generation based on code by sk89q
-See [http://sk89q.therisenrealm.com/](http://sk89q.therisenrealm.com/) for more info
+See [http://sk89q.therisenrealm.com/](http://sk89q.therisenrealm.com/) for more info.
+
+Thanks to [Justin Slepak](https://github.com/jrslepak) for adding support for punctuation characters.

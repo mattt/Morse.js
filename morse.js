@@ -22,23 +22,24 @@
           "1": ".____", "2": "..___", "3": "...__", "4": "...._", "5": ".....",
           "6": "_....", "7": "__...", "8": "___..", "9": "____.", "0": "_____",
           
-          ".": "._._._",	",": "__..__",	"?": "..__..",	"'": ".____.",
-          "/": "_.._.",		"(": "_.__.",	")": "_.__._",	"&": "._...",
-          ":": "___...",	";": "_._._.",	"=": "_..._",	"+": "._._.",
-          "-": "_...._",	"_": "..__._",	"\"": "._.._.",	"$": "..._.._",
-          "!": "_._.__",	"@": ".__._."
+          /*
+           * Note: Some operators prefer "!" as "___." and others as "_._.__"
+           * ARRL message format has most punctuation spelled out, as many symbols'
+           * encodings conflict with procedural signals (e.g. "=" and "BT").
+           */
+          
+          ".": "._._._", ",": "__..__", "?": "..__..",  "'": ".____.",
+          "/": "_.._.",  "(": "_.__.",  ")": "_.__._",  "&": "._...",
+          ":": "___...", ";": "_._._.", "=": "_..._",   "+": "._._.",
+          "-": "_...._", "_": "..__._", "\"": "._.._.", "$": "..._.._",
+          "!": "_._.__", "@": ".__._."
     },
-    /*
-     * Note: Some operators prefer "!" as "___." and others as "_._.__"
-     * ARRL message format has most punctuation spelled out, as many symbols'
-     * encodings conflict with procedural signals (e.g. "=" and "BT").
-     */
     annotate: function(el) {
       var $el = $(el);
       var tokens = $el.text().split(/\s+/);
-      
+
       $el.text('');
-      
+
       for(i in tokens) {
         var token = tokens[i];
         var letters = token.split('');
@@ -51,10 +52,10 @@
             symbols.push(symbol);
           }
         }
-        
+
         $el.append('<ruby class="morse-code"><rb>' + token + '</rb><rt>' + symbols.join(' ') + '&nbsp;' + '</rt></ruby>');
       }
-      
+
       $el.each(function() {
         if($("#morse-code-output")[0] === undefined) {
           var audio = $('<audio id="morse-code-output"></audio>').bind("morse.mute", function(){this.pause();})
@@ -69,7 +70,7 @@
       $(this).find("rt").each(function() {
         symbols.push($(this).text());
       })
-      
+
       // Javascript WAV generation based on code by sk89q (http://sk89q.therisenrealm.com/)
       var generate = function(symbols, options) {
         var defaults = {
@@ -101,7 +102,7 @@
             }
           }
         }
-        
+
         var silence = function(length) {
           for (var i = 0; i < sampleRate * unit * length; i++) {
             for (var c = 0; c < channels; c++) {
@@ -167,11 +168,11 @@
       // pack() emulation (from the PHP version), for binary crunching
       var pack = function(e){for(var b="",c=1,d=0;d<e.length;d++){var f=e.charAt(d),a=arguments[c];c++;switch(f){case "a":b+=a[0]+"\u0000";break;case "A":b+=a[0]+" ";break;case "C":case "c":b+=String.fromCharCode(a);break;case "n":b+=String.fromCharCode(a>>8&255,a&255);break;case "v":b+=String.fromCharCode(a&255,a>>8&255);break;case "N":b+=String.fromCharCode(a>>24&255,a>>16&255,a>>8&255,a&255);break;case "V":b+=String.fromCharCode(a&255,a>>8&255,a>>16&255,a>>24&255);break;case "x":c--;b+="\u0000";break;default:throw new Error("Unknown pack format character '"+
       f+"'");}}return b};
-      
+
       $("#morse-code-output").attr('src', generate(symbols.join('|'), {unit: 1.200 / Morse.wpm}))[0].play();
     },
   };
-  
+
   $.fn.extend({
     morseCode: function() {
       return this.each(function(){
