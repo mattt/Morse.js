@@ -1,101 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset='utf-8'>
-  <meta name="author" content="Mattt Thompson">
-  <meta name="description" content="Morse.js — A jQuery plugin to annotate text with Morse Code">
-	<title>Morse.js Demo</title>
-	<style type="text/css" media="screen" charset="utf-8">   body{background:#4F5252;font-size:1.3em;line-height:1.1em;font-family:"Helvetica",Helvetica,sans-serif;-webkit-text-stroke:1px transparent;-webkit-background-clip:padding-box;}
-  h1,h2{text-align:center;}
-  h1{color:#222;text-shadow:1px 1px 1px #ddd;margin-bottom:0.5em;}
-  h2{color:#888;width:80%;margin:0.5em auto 30px auto;font-family:"Palantino",Georgia;font-size:80%;font-style:italic;font-weight:normal;}
-  p,label,span{text-shadow:1px 1px 1px #f2f2f2;}
-  nil
-  label{color:#444;display:block;font-variant:small-caps;text-transform:lowercase;}
-  p{font-size:77%;color:#444;}
-  input{width:440px;font-size:1.5em;margin-bottom:0.75em;}
-  .explanation,.audio-test{text-align:center;}
-  a{color:#5C583F;}
-  a:hover{background:#ddd;}
-  a:visited{color:#5C583F;}
-  a:active{color:#fff;background:#444;text-shadow:none;}
-  fieldset{width:440px;margin:10px auto;border:none;}
-  hr{border:0px transparent solid;border-top:1px #fdfdfd solid;border-bottom:1px #ddd solid;margin:20px 0 30px 0;}
-  .container,.footer{width:480px;}
-  .container{padding:30px 30px;margin:50px auto 30px auto;background:#fff;-moz-border-radius:11px;-khtml-border-radius:11px;-webkit-border-radius:11px;border-radius:11px;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;-webkit-box-shadow:1px 0px 5px #444;-khtml-box-sizing:content-box;box-sizing:content-box;}
-  section{margin:10px 0;border-top:1px #f2f2f2 solid;padding:10px 0;}
-  input[type="range"]{float:left;width:330px;margin:10px 20px 10px auto;-webkit-appearance:none !important;display:block;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;height:10px;background:#ccc;}
-  input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none !important;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;width:20px;height:20px;background:#222;display:block;}
-  menu.controls{clear:both;height:30px;}
-  label[for="wpm"]{display:block;text-align:center;color:#444;text-transform:lowercase;font-variant:small-caps;}
-  #chart{width:100%;}
-  .letter{font-size:1.5em;text-align:center;font-weight:bold;padding:0.25em;}
-  ruby.morse-code{cursor:pointer;}
-  .letter:hover{background:#ccc;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
-  .letter ruby.morse-code rt{font-family:"Menlo","Monaco","Courier",monospace;letter-spacing:3pt;text-align:center;text-indent:0.3em;}
-  #free-form p{font-size:1.5em;text-align:center;}
-  #free-form input{font-size:1.00em;width:100%;color:#777;text-align:center;}
-  .footer{margin:0 auto;display:block;color:#999;text-align:center;font-size:0.6em;}
-  .footer span{display:block;line-height:1.5em;text-shadow:#444 1px 1px 0px ;}
-  .footer a{color:#999}
-  .footer a:hover{text-shadow:none;color:#555;}
-	</style>
-	<script src="http://www.google.com/jsapi"></script>
-  <script type="text/javascript" charset="utf-8">
-     google.load("jquery", "1.4.4");
-  </script>
-  <script type="text/javascript" src="morse.js" charset="utf-8"></script>
-	<script type="text/javascript" charset="utf-8">
-    $(document).ready(function() {
-      $("#chart .letter").morseCode();
-      $("#free-form p").morseCode();
-      
-      $("#free-form input").bind("keyup", function(e) {
-        var code = e.keyCode || e.which;
-        if(code == 13) { // [ENTER]
-          $("#free-form p").trigger("morse.emit");
-        } else {
-          $("#free-form p").empty().text($(this).val()).morseCode()
-        }
+  <head>
+    <meta charset='utf-8'>
+    <meta name="author" content="Mattt Thompson">
+    <meta name="description" content="Morse.js — A jQuery plugin to annotate text with Morse Code">
+  	<title>Morse.js</title>
+  	<style type="text/css" media="screen" charset="utf-8">
+      body{background:#4F5252;font-size:120%;font-family:"Helvetica",Helvetica,sans-serif;- webkit-background-clip:padding-box;}
+      h1,h2{text-align:center;}
+      h1{color:#222;text-shadow:1px 1px 1px #ddd;margin-bottom:0.5em;}
+      h2{color:#888;width:80%;margin:0.5em auto 30px auto;font-family:"Palantino",Georgia;font-size:80%;font-style:italic;font-weight:normal;}
+      p,label,span{text-shadow:1px 1px 1px #f2f2f2;}
+      nil
+      label{color:#444;display:block;font-variant:small-caps;text-transform:lowercase;}
+      p{font-size:77%;color:#444;}
+      input{width:440px;font-size:1.5em;margin-bottom:0.75em;}
+      .explanation,.audio-test{text-align:center;}
+      a{color:#5C583F;}
+      a:hover{background:#ddd;}
+      a:visited{color:#5C583F;}
+      a:active{color:#fff;background:#444;text-shadow:none;}
+      fieldset{width:440px;margin:10px auto;border:none;}
+      hr{border:0px transparent solid;border-top:1px #fdfdfd solid;border-bottom: 1px #ddd solid;margin:20px 0 30px 0;}
+      .container, .footer{width:480px;}
+      .container{padding:30px 30px;margin:30px auto 30px auto;background:#fff;-moz-border-radius:11px;-khtml-border-radius:11px;-webkit-border-radius:11px;border-radius:11px;-moz-box-sizing:content-box;-webkit-box-sizing: content-box;-webkit-box-shadow:0px 2px 5px #333;-khtml-box-sizing:content-box;box-sizing:content-box;}
+      section{margin:10px 0;border-top:1px #f2f2f2 solid;padding:10px 0;}
+      input[type="range"]{float:left;width:330px;margin:10px 20px 10px auto;- webkit -appearance:none !important;display:block;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;height:10px;background:#ccc;}
+      input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none !important; -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;width:20px;height:20px;background:#222;display:block;}
+      menu.controls{clear:both;height:30px;}
+      label[for="wpm"]{display:block;text-align:center;color:#444;text-transform:lowercase;font-variant:small-caps;}
+      #chart{width:100%;}
+      .letter{font-size:1.25em;text-align:center;font-weight:bold;padding:0.25em;}
+      ruby.morse-code{cursor:pointer;}
+      .letter:hover{background:#ccc;-moz-border-radius:5px;-webkit-border-radius: 5px;border-radius:5px;}
+      .letter ruby.morse-code rt{font-family:"Menlo","Monaco","Courier",monospace; letter-spacing:3pt;text-align:center;text-indent:0.3em;}
+      #free-form p{font-size:1.5em;text-align:center;}
+      #free-form input{font-size:1.00em;width:100%;color:#777;text-align:center;}
+      footer{margin:0 auto;display:block;color:#999;text-align:center;font-size:0.6em;}
+      footer span{display:block;line-height:1.5em;text-shadow:#444 1px 1px 0px ; }
+      footer a, footer a:visited{color:#999}
+      footer a:hover{text-shadow:none;color:#555;}
+  	</style>
+    <script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.morse.js" charset="utf-8"></script >
+  	<script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+        $("#chart .letter").morseCode();
+        $("#free-form p").morseCode();
+        
+        $("#free-form input").bind("keyup", function(e) {
+          var code = e.keyCode || e.which;
+          if(code == 13) { // [ENTER]
+            $("#free-form p").trigger("morse.emit");
+          } else {
+            $("#free-form p").empty().text($(this).val()).morseCode()
+          }
+        });
+  
+        $("#wpm").bind("change", function() {
+          Morse.wpm = $(this).val();
+          $("label[for='wpm']").text("" + Morse.wpm + " wpm");
+          $("audio").trigger("morse.mute");
+        }).trigger("change");
       });
+  	</script>
+    <link href="http://opensource.org/licenses/mit-license" rel="license"/>
+  </head>
+  
+  <body>
+    <a href="http://github.com/mattt/morse.js/">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src=" http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"/>
+    </a>
+  
+    <div class="container">
+      <hgroup>
+        <h1>Morse.js</h1>
+        <h2>a jQuery plugin that annotates text with Morse Code</h2>
+      </hgroup>
 
-      $("#wpm").bind("change", function() {
-        Morse.wpm = $(this).val();
-        $("label[for='wpm']").text("" + Morse.wpm + " wpm");
-        $("audio").trigger("morse.mute");
-      }).trigger("change");
-    });
-	</script>
-  <script src='http://static.matttthompson.com/mint/?js' type='text/javascript' language='javascript'></script>
-</head>
+      <menu class="controls">
+        <input type="range" id="wpm" min="1" max="36" step="1" value="12"/>
+        <label for="wpm"></label>
+      </menu>
 
-<body>
-  <a href="http://github.com/mattt/morse.js/">
-    <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" />
-  </a>
+      <section id="alphabet">
+        <p class="audio-test"><audio>Not hearing anything? Morse.js requires HTML5 <tt>&lt;audio&gt;</tt>,<br/>which your browser does not seem to support. <br/> Might I suggest <a href="http://www.apple.com/safari/download/" title="Download Apple Safari">Safari</a>, <a href=" http://www.mozilla.com/firefox/" title="Download Mozilla Firefox">Firefox</a>, or <a href="http://www.google.com/chrome/" title="Download Google Chrome">Chrome</a>?</audio>
+        </p>
+        
+        <table id="chart">
+          <tr>
+            <td class="letter">A</td>
+            <td class="letter">B</td>
+            <td class="letter">C</td>
+            <td class="letter">D</td>
+          </tr>
+          <tr>
+            <td class="letter">E</td>
+            <td class="letter">F</td>
+            <td class="letter">G</td>
+            <td class="letter">H</td>
+          </tr>
+          <tr>
+            <td class="letter">I</td>
+            <td class="letter">J</td>
+            <td class="letter">K</td>
+            <td class="letter">L</td>
+          </tr>
+          <tr>
+            <td class="letter">M</td>
+            <td class="letter">N</td>
+            <td class="letter">O</td>
+            <td class ="letter">P</td>
+          </tr>
+          <tr>
+            <td class="letter">Q</td>
+            <td class="letter">R</td>
+            <td class="letter">S</td>
+            <td class="letter">T</td>
+          </tr>
+          <tr>
+            <td class="letter">U</td>
+            <td class="letter">V</td>
+            <td class="letter">W</td>
+            <td class="letter">X</td>
+          </tr>
+          <tr>
+            <td class="letter"></td>
+            <td class="letter">Y</td>
+            <td class="letter">Z</td>
+            <td class="letter"></td>
+          </tr>
+        </table>
+      </section>
 
-  <div class="container">
-    <hgroup>
-      <h1>Morse.js</h1>
-      <h2>a jQuery plugin that annotates text with Morse Code</h2>
-    </hgroup>
-    <menu class="controls">
-      <input type="range" id="wpm" min="1" max="36" step="1" value="12"/>
-      <label for="wpm"></label>
-    </menu>
-    <section id="alphabet">
-      <p class="audio-test"><audio>Not hearing anything? Morse.js requires HTML5 <tt>&lt;audio&gt;</tt>,<br/>which your browser does not seem to support. <br/> Might I suggest <a href="http://www.apple.com/safari/download/" title="Download Apple Safari">Safari</a>, <a href="http://www.mozilla.com/firefox/" title="Download Mozilla Firefox">Firefox</a>, or <a href="http://www.google.com/chrome/" title="Download Google Chrome">Chrome</a>?</audio></p>
-      <table id="chart"><tr><td class="letter">A</td><td class="letter">B</td><td class="letter">C</td><td class="letter">D</td></tr><tr><td class="letter">E</td><td class="letter">F</td><td class="letter">G</td><td class="letter">H</td></tr><tr><td class="letter">I</td><td class="letter">J</td><td class="letter">K</td><td class="letter">L</td></tr><tr><td class="letter">M</td><td class="letter">N</td><td class="letter">O</td><td class="letter">P</td></tr><tr><td class="letter">Q</td><td class="letter">R</td><td class="letter">S</td><td class="letter">T</td></tr><tr><td class="letter">U</td><td class="letter">V</td><td class="letter">W</td><td class="letter">X</td></tr><tr><td class="letter"></td><td class="letter">Y</td><td class="letter">Z</td><td class="letter"></td></tr>
-      </table>
-    </section>
-    <section id="free-form">
-      <p>A patient waiter is no loser.</p>
-      <input type="text" maxlength="42" placeholder="Try it out with your own text"/>
-    </section>
-  </div>
-  <div class="footer">
-    <span class="copyright">&copy; <a href="http://twitter.com/mattt" title="@mattt" rel="me">Mattt Thompson</a> - Released Under an MIT License</span>
-    <span class="version">Last Revised: May 12, 2011</span>
-  </div>
-</body>
+      <section id="free-form">
+        <p>A patient waiter is no loser.</p>
+        <input type="text" maxlength="32" placeholder="Try it out with your own message"/>
+      </section>
+    </div>
+
+    <footer>
+      <span class="copyright">© <a href="http://twitter.com/mattt" title="@mattt" rel="me">Mattt Thompson</a> - Released Under an <a href="http://opensource.org/licenses/mit-license" rel="license">MIT License</a></span>
+    </footer>
+
+    <script src='http://static.matttthompson.com/mint/?js' type='text/javascript' language='javascript'></script>
+  </body>
 </html>
