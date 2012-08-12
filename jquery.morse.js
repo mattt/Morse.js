@@ -3,7 +3,7 @@
  * A jQuery Plugin that annotates text with Morse Code
  * http://github.com/mattt/Morse.js
  *
- * Copyright (c) 2010 Mattt Thompson
+ * Copyright (c) 2010-2012 Mattt Thompson
  * Licensed under the MIT licenses.
  */
 
@@ -11,28 +11,27 @@
   Morse = {
     wpm: 12,
     code: {
-          "a": "._",    "b": "_...",  "c": "_._.",  "d": "_..",
-          "e": ".",     "f": ".._.",  "g": "__.",   "h": "....",
-          "i": "..",    "j": ".___",  "k": "_._",   "l": "._..",
-          "m": "__",    "n": "_.",    "o": "___",   "p": ".__.",
-          "q": "__._",  "r": "._.",   "s": "...",   "t": "_",
-          "u": ".._",   "v": "..._",  "w": ".__",   "x": "_.._",
-          "y": "_.__",  "z": "__..",  " ": " ",
+      "a": "._",    "b": "_...",  "c": "_._.",  "d": "_..",
+      "e": ".",     "f": ".._.",  "g": "__.",   "h": "....",
+      "i": "..",    "j": ".___",  "k": "_._",   "l": "._..",
+      "m": "__",    "n": "_.",    "o": "___",   "p": ".__.",
+      "q": "__._",  "r": "._.",   "s": "...",   "t": "_",
+      "u": ".._",   "v": "..._",  "w": ".__",   "x": "_.._",
+      "y": "_.__",  "z": "__..",  " ": " ",
 
-          "1": ".____", "2": "..___", "3": "...__", "4": "...._", "5": ".....",
-          "6": "_....", "7": "__...", "8": "___..", "9": "____.", "0": "_____",
-          
-          /*
-           * Note: Some operators prefer "!" as "___." and others as "_._.__"
-           * ARRL message format has most punctuation spelled out, as many symbols'
-           * encodings conflict with procedural signals (e.g. "=" and "BT").
-           */
-          
-          ".": "._._._", ",": "__..__", "?": "..__..",  "'": ".____.",
-          "/": "_.._.",  "(": "_.__.",  ")": "_.__._",  "&": "._...",
-          ":": "___...", ";": "_._._.", "=": "_..._",   "+": "._._.",
-          "-": "_...._", "_": "..__._", "\"": "._.._.", "$": "..._.._",
-          "!": "_._.__", "@": ".__._."
+      "1": ".____", "2": "..___", "3": "...__", "4": "...._", "5": ".....",
+      "6": "_....", "7": "__...", "8": "___..", "9": "____.", "0": "_____",
+      
+      /*
+       * Note: Some operators prefer "!" as "___." and others as "_._.__"
+       * ARRL message format has most punctuation spelled out, as many symbols'
+       * encodings conflict with procedural signals (e.g. "=" and "BT").
+       */
+      ".": "._._._", ",": "__..__", "?": "..__..",  "'": ".____.",
+      "/": "_.._.",  "(": "_.__.",  ")": "_.__._",  "&": "._...",
+      ":": "___...", ";": "_._._.", "=": "_..._",   "+": "._._.",
+      "-": "_...._", "_": "..__._", "\"": "._.._.", "$": "..._.._",
+      "!": "_._.__", "@": ".__._."
     },
     annotate: function(el) {
       var $el = $(el);
@@ -40,15 +39,15 @@
 
       $el.text('');
 
-      for(i in tokens) {
+      for (i in tokens) {
         var token = tokens[i];
         var letters = token.split('');
         var symbols = [];
 
-        for(j in letters) {
+        for (j in letters) {
           var letter = letters[j];
           var symbol = Morse.code[letter.toLowerCase()];
-          if(symbol) {
+          if (symbol) {
             symbols.push(symbol);
           }
         }
@@ -57,19 +56,23 @@
       }
 
       $el.each(function() {
-        if($("#morse-code-output")[0] === undefined) {
+        if ($("#morse-code-output")[0] === undefined) {
           var audio = $('<audio id="morse-code-output"></audio>').bind("morse.mute", function(){this.pause();})
           $(this).after(audio);
         }
+
         $(this).bind('morse.emit', Morse.emit).bind('click', function(){ $(this).trigger("morse.emit")});
       });
     },
+
     emit: function() {
-      $("#morse-code-output").trigger("morse.mute").attr('src', "");
       var symbols = [];
+      
+      $("#morse-code-output").trigger("morse.mute").attr('src', "");
+      
       $(this).find("rt").each(function() {
         symbols.push($(this).text());
-      })
+      });
 
       // Javascript WAV generation based on code by sk89q (http://sk89q.therisenrealm.com/)
       var generate = function(symbols, options) {
@@ -114,13 +117,13 @@
         for (var i in symbols) {
           var length;
           var symbol = symbols[i];
-          if(symbol == '|') {
+          if (symbol == '|') {
             silence(7);
           } else {
-            if(symbol == '.') {
+            if (symbol == '.') {
               tone(1);
               silence(1);
-            } else if(symbol == '_') {
+            } else if (symbol == '_') {
               tone(3);
               silence(1);
             } else {
